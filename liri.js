@@ -2,17 +2,17 @@
 var fs = require("fs");
 
 var request = require("request");
-//var Spotify = require("node-spotify-api");
-//var moment = require("moment");
-//const db = require("db");
-//var keys = require("./keys.js");
+var Spotify = require("node-spotify-api");
+var moment = require("moment");
+//var db = require("db");
+var keys = require("./keys.js");
 
 // Load exports from keys.js file which has Spotify auth keys
-//var spotify = new Spotify(keys.spotify);
+var spotify = new Spotify(keys.spotify);
 
 // Take argument
 // The first will be the command (   * `concert-this`* `spotify-this-song`* `movie-this`* `do-what-it-says`)
-// The second will be the query - we are doing this inside the function for each action below 
+// The second will be the query - we are doing this inside the function for each action below
 // node liri.js [ command ] [ query - optional ]
 var action = process.argv[2];
 
@@ -24,7 +24,7 @@ switch (action) {
     break;
 
   case "spotify-this-song":
-    spotify();
+    spotifyThis();
     break;
 
   case "movie-this":
@@ -37,28 +37,43 @@ switch (action) {
 }
 
 function movieThis() {
-  var query = process.argv[3];
-  console.log(query);
+  var nodeArgs = process.argv;
 
-  if (!query) {
-    query = "mr nobody";
+  // Create an empty variable for holding the movie name
+  var movieName = "";
+
+  // Loop through all the words in the node argument
+  // And do a little for-loop magic to handle the inclusion of "+"s
+  for (var i = 3; i < nodeArgs.length; i++) {
+    if (i > 3 && i < nodeArgs.length) {
+      movieName = movieName + "+" + nodeArgs[i];
+    } else {
+      movieName += nodeArgs[i];
+    }
   }
 
-  var queryUrl = "http://www.omdbapi.com/?t=" + query + "apikey=trilogy";
+  console.log(movieName);
+
+  if (!movieName) {
+    movieName = "mr nobody";
+  }
+
+  var queryUrl = "http://www.omdbapi.com/?t=" + movieName + "&apikey=trilogy";
+  console.log(queryUrl);
 
   request(queryUrl, function(error, response, body) {
     // If the request is successful (i.e. if the response status code is 200)
     if (!error && response.statusCode === 200) {
       // Parse the body of the site and recover just the imdbRating
       // (Note: The syntax below for parsing isn't obvious. Just spend a few moments dissecting it).
-      console.log("The movie's title is: " + JSON.parse(body).Title);
+      console.log("The movie's title is: " + JSON.parse(body).Title + "\r\n");
       console.log("The movie's came out in: " + JSON.parse(body).Year + "\r\n");
       console.log(
-        "The movie's rating is: " + JSON.parse(body).imdbRating + "\r\n"
+        "The movie's IMDB rating is: " + JSON.parse(body).imdbRating + "\r\n"
       );
       console.log(
         "The movie's Rotton Tomatoes rating is: " +
-          JSON.parse(body).tomatoRating +
+          JSON.parse(body).Ratings[1] +
           "\r\n"
       );
       console.log(
@@ -67,12 +82,95 @@ function movieThis() {
           "\r\n"
       );
       console.log(
-        "The movie's language is: " + JSON.parse(body).language + "\r\n"
+        "The movie's language is: " + JSON.parse(body).Language + "\r\n"
       );
-      console.log("The movie's plot is: " + JSON.parse(body).plot + "\r\n");
+      console.log("The movie's plot is: " + JSON.parse(body).Plot + "\r\n");
       console.log(
-        "The movie's actors are: " + JSON.parse(body).actors + "\r\n"
+        "The movie's actors are: " + JSON.parse(body).Actors + "\r\n"
       );
     }
   });
 }
+
+
+function spotifyThis() {
+    var nodeArgs = process.argv;
+  
+    // Create an empty variable for holding the movie name
+    var spotifyQuery = "";
+  
+    // Loop through all the words in the node argument
+    // And do a little for-loop magic to handle the inclusion of "+"s
+    for (var i = 3; i < nodeArgs.length; i++) {
+      if (i > 3 && i < nodeArgs.length) {
+        spotifyQuery= spotifyQuery + "+" + nodeArgs[i];
+      } else {
+        spotifyQuery += nodeArgs[i];
+      }
+      console.log(spotifyQuery);
+  
+      spotify.search({ type: 'track', spotifyQuery: 'All the Small Things' }, function(err, data) {
+          if (err) {
+            return console.log('Error occurred: ' + err);
+          }
+         
+        console.log(data); 
+        });
+    }
+}
+
+
+function concertThis()
+var band = process.argv;
+
+// Create an empty variable for holding the movie name
+var band = "";
+
+// Loop through all the words in the node argument
+// And do a little for-loop magic to handle the inclusion of "+"s
+for (var i = 3; i < nodeArgs.length; i++) {
+  if (i > 3 && i < nodeArgs.length) {
+    band = band + "+" + nodeArgs[i];
+  } else {
+    band += nodeArgs[i];
+  }
+}
+
+console.log(band);
+
+if (!band) {
+  band = "Journey";
+}
+var queryUrl = "https://rest.bandsintown.com/artists/" + band + "/events?app_id=codingbootcamp"
+console.log(queryUrl);
+
+request(queryUrl, function(error, response, body) {
+    if (!error && response.statusCode === 200) {
+
+        console.log(band + " are playing the  " + JSON.parse(body).venue.name + "\r\n");
+        console.log("The venue is in: " + JSON.parse(body).venue.city+ "\r\n");
+        console.log(
+          "The date of the event is: " + JSON.parse(body).imdbRating + "\r\n"
+        );
+
+        
+      }
+    });
+  
+
+
+
+
+
+
+
+
+1. `node liri.js concert-this <artist/band name here>`
+
+   * This will search the Bands in Town Artist Events API (`"https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp"`) for an artist and render the following information about each event to the terminal:
+
+     * Name of the venue
+
+     * Venue location
+
+     * Date of the Event (use moment to format this as "MM/DD/YYYY")
