@@ -122,13 +122,13 @@ console.log(queryUrl);
 request(queryUrl, function(error, response, body) {
     if (!error && response.statusCode === 200) {
 
-
-        console.log(band + " is playing the  " + JSON.parse(body).venue+ "\r\n");
-        console.log("The venue is in: " + JSON.parse(body).venue+ "\r\n");
+for(i=0; i< body.length; i++){
+        console.log(band + " is playing the  " + JSON.parse(body[i]).venue.name+ "\r\n");
+        console.log("The venue is in: " + JSON.parse(body[i]).venue.city+ "\r\n");
         console.log(
-          "The date of the event is: " + JSON.parse(body).datetime + "\r\n"
+          "The date of the event is: " + JSON.parse(body[i]).datetime + "\r\n"
         );
-
+        }
         
       }
     });
