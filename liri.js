@@ -3,6 +3,7 @@ var fs = require("fs");
 
 var request = require("request");
 //var Spotify = require("node-spotify-api");
+var dotenv = require("dotenv").config();
 var moment = require("moment");
 //var db = require("db");
 //var keys = require("./keys.js");
@@ -112,21 +113,22 @@ for (var i = 3; i < nodeArgsC.length; i++) {
 
 console.log(band);
 
-if (!band) {
-  band = "Journey";
-}
+
 var queryUrl = "https://rest.bandsintown.com/artists/" + band + "/events?app_id=codingbootcamp"
 
 console.log(queryUrl);
 
-request(queryUrl, function(error, response, body) {
+request(queryUrl, function(error, response) {
     if (!error && response.statusCode === 200) {
 
-for(i=0; i< body.length; i++){
-        console.log(band + " is playing the  " + JSON.parse(body[i]).venue.name+ "\r\n");
-        console.log("The venue is in: " + JSON.parse(body[i]).venue.city+ "\r\n");
+       console.log(JSON.parse(response.body).length);
+
+for( i=0; i< (JSON.parse(response.body).length); i++){
+  //console.log('the value of i is ', i);
+         console.log(band + " is playing the  " + JSON.parse(response.body)[i].venue.name+ "\r\n");
+        console.log("The venue is in: " + JSON.parse(response.body)[i].venue.city+ "\r\n");
         console.log(
-          "The date of the event is: " + JSON.parse(body[i]).datetime + "\r\n"
+           "The date of the event is: " + JSON.parse(response.body)[i].datetime + "\r\n"
         );
         }
         
