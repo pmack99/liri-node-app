@@ -2,10 +2,13 @@
 var fs = require("fs");
 
 var request = require("request");
-var Spotify = require("node-spotify-api");
-var dotenv = require("dotenv").config();
 var moment = require("moment");
-
+var Spotify = require('node-spotify-api');
+var spotify = new Spotify({
+  id: "9766ac328a13403d89ed76830d714b72",
+  secret: "2c57c0868cba4bd89423ba017616ff01"
+});
+var dotenv = require("dotenv").config();
 var keys = require("./keys.js");
 
 // Load exports from keys.js file which has Spotify auth keys
@@ -123,6 +126,8 @@ function concertThis() {
 
       for (i = 0; i < JSON.parse(response.body).length; i++) {
         //console.log('the value of i is ', i);
+
+        var time = (response.body)[i].datetime;
         console.log(
           band +
             " is playing the  " +
@@ -136,6 +141,10 @@ function concertThis() {
           "The date of the event is: " +
             JSON.parse(response.body)[i].datetime +
             "\r\n"
+
+            // var time = response.passes[i].startUTC;
+            // var dateString = moment.unix(time).format('LLLL');
+
         );
       }
     }
@@ -143,11 +152,10 @@ function concertThis() {
 }
 
 
-
 function spotifyThis() {
   var nodeArgsS = process.argv;
 
-  // Create an empty variable for holding the movie name
+  // Create an empty variable for holding the song name
   var spotifyQuery = "";
 
   // Loop through all the words in the node argument
@@ -160,12 +168,13 @@ function spotifyThis() {
     }
     console.log(spotifyQuery);
 
-    spotify.search({ type: 'track', spotifyQuery: 'All the Small Things' }, function(err, data) {
-        if (err) {
-          return console.log('Error occurred: ' + err);
-        }
-       
-      console.log(data); 
-      });
+    Spotify.search({ type: 'track', query: spotifyQuery }, function(err, data) {
+      if (err) {
+        return console.log('Error occurred: ' + err);
+      }
+     
+    console.log(data); 
+    });
+
   }
 }
