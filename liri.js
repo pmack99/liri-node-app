@@ -4,12 +4,9 @@ var fs = require("fs");
 var request = require("request");
 var moment = require("moment");
 var Spotify = require('node-spotify-api');
-var spotify = new Spotify({
-  id: "9766ac328a13403d89ed76830d714b72",
-  secret: "2c57c0868cba4bd89423ba017616ff01"
-});
 var dotenv = require("dotenv").config();
 var keys = require("./keys.js");
+var spotify = new Spotify(keys.spotify);
 
 // Load exports from keys.js file which has Spotify auth keys
 //var spotify = new Spotify(keys.spotify);
@@ -127,7 +124,7 @@ function concertThis() {
       for (i = 0; i < JSON.parse(response.body).length; i++) {
         //console.log('the value of i is ', i);
 
-        var time = (response.body)[i].datetime;
+        //var time = (response.body)[i].datetime;
         console.log(
           band +
             " is playing the  " +
@@ -166,15 +163,20 @@ function spotifyThis() {
     } else {
       spotifyQuery += nodeArgsS[i];
     }
-    console.log(spotifyQuery);
+    //console.log(spotifyQuery);
+  }
 
-    Spotify.search({ type: 'track', query: spotifyQuery }, function(err, data) {
+    spotify.search({ type: 'track', query: spotifyQuery }, function(err, data) {
       if (err) {
         return console.log('Error occurred: ' + err);
       }
-     
-    console.log(data); 
+    for (i=0; i < data.length; i++);
+    console.log("Artist name:  " + data.tracks.items[i].album.artists.name); 
+    console.log("Song name:  " + data.tracks.items[i].name); 
+    console.log("Album name:  " + data.tracks.items[i].album.name); 
+    console.log("Preview link:  " + data.tracks.items[i].album.external_urls.spotify); 
+    console.log(data.tracks.items[i]); 
     });
-
   }
-}
+  
+
