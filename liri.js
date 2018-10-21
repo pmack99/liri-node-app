@@ -2,11 +2,11 @@
 var fs = require("fs");
 
 var request = require("request");
-//var Spotify = require("node-spotify-api");
+var Spotify = require("node-spotify-api");
 var dotenv = require("dotenv").config();
 var moment = require("moment");
-//var db = require("db");
-//var keys = require("./keys.js");
+
+var keys = require("./keys.js");
 
 // Load exports from keys.js file which has Spotify auth keys
 //var spotify = new Spotify(keys.spotify);
@@ -93,47 +93,79 @@ function movieThis() {
   });
 }
 
+function concertThis() {
+  var nodeArgsC = process.argv;
+
+  var band = "";
+
+  // Loop through all the words in the node argument
+  // And do a little for-loop magic to handle the inclusion of "+"s
+  for (var i = 3; i < nodeArgsC.length; i++) {
+    if (i > 3 && i < nodeArgsC.length) {
+      band = band + "+" + nodeArgsC[i];
+    } else {
+      band += nodeArgsC[i];
+    }
+  }
+
+  console.log(band);
+
+  var queryUrl =
+    "https://rest.bandsintown.com/artists/" +
+    band +
+    "/events?app_id=codingbootcamp";
+
+  console.log(queryUrl);
+
+  request(queryUrl, function(error, response) {
+    if (!error && response.statusCode === 200) {
+      console.log(JSON.parse(response.body).length);
+
+      for (i = 0; i < JSON.parse(response.body).length; i++) {
+        //console.log('the value of i is ', i);
+        console.log(
+          band +
+            " is playing the  " +
+            JSON.parse(response.body)[i].venue.name +
+            "\r\n"
+        );
+        console.log(
+          "The venue is in: " + JSON.parse(response.body)[i].venue.city + "\r\n"
+        );
+        console.log(
+          "The date of the event is: " +
+            JSON.parse(response.body)[i].datetime +
+            "\r\n"
+        );
+      }
+    }
+  });
+}
 
 
-function concertThis(){
 
-var nodeArgsC = process.argv;
+function spotifyThis() {
+  var nodeArgsS = process.argv;
 
-var band = "";
+  // Create an empty variable for holding the movie name
+  var spotifyQuery = "";
 
-// Loop through all the words in the node argument
-// And do a little for-loop magic to handle the inclusion of "+"s
-for (var i = 3; i < nodeArgsC.length; i++) {
-  if (i > 3 && i < nodeArgsC.length) {
-    band = band + "+" + nodeArgsC[i];
-  } else {
-    band += nodeArgsC[i];
+  // Loop through all the words in the node argument
+  // And do a little for-loop magic to handle the inclusion of "+"s
+  for (var i = 3; i < nodeArgsS.length; i++) {
+    if (i > 3 && i < nodeArgsS.length) {
+      spotifyQuery= spotifyQuery + "+" + nodeArgsS[i];
+    } else {
+      spotifyQuery += nodeArgsS[i];
+    }
+    console.log(spotifyQuery);
+
+    spotify.search({ type: 'track', spotifyQuery: 'All the Small Things' }, function(err, data) {
+        if (err) {
+          return console.log('Error occurred: ' + err);
+        }
+       
+      console.log(data); 
+      });
   }
 }
-
-console.log(band);
-
-
-var queryUrl = "https://rest.bandsintown.com/artists/" + band + "/events?app_id=codingbootcamp"
-
-console.log(queryUrl);
-
-request(queryUrl, function(error, response) {
-    if (!error && response.statusCode === 200) {
-
-       console.log(JSON.parse(response.body).length);
-
-for( i=0; i< (JSON.parse(response.body).length); i++){
-  //console.log('the value of i is ', i);
-         console.log(band + " is playing the  " + JSON.parse(response.body)[i].venue.name+ "\r\n");
-        console.log("The venue is in: " + JSON.parse(response.body)[i].venue.city+ "\r\n");
-        console.log(
-           "The date of the event is: " + JSON.parse(response.body)[i].datetime + "\r\n"
-        );
-        }
-        
-      }
-    });
-}
-
-
