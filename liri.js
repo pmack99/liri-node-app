@@ -171,11 +171,11 @@ function spotifyThis() {
         return console.log('Error occurred: ' + err);
       }
     for (i=0; i < data.length; i++);
-    console.log("Artist name:  " + data.tracks.items[i].album.artists.name); 
+    console.log("Artist name:  " + data.tracks.items[i].album.artists[i].name); 
     console.log("Song name:  " + data.tracks.items[i].name); 
     console.log("Album name:  " + data.tracks.items[i].album.name); 
     console.log("Preview link:  " + data.tracks.items[i].album.external_urls.spotify); 
-    console.log(data.tracks.items[i]); 
+    //console.log(data.tracks.items[i]); 
     });
   }
   
