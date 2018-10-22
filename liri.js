@@ -191,18 +191,26 @@ function doWhat(){
 
 		// console.log(dataArr);
 
-		var whatAction= dataArr[0];
-		var whatQuery = dataArr[1];
+    var whatAction= dataArr[0];
+    var whatQuery = dataArr[1];
+    
+    for (var i = 1; i < dataArr.length; i++) {
+      if (i > 1 && i < dataArr.length) {
+        spotifyQuery= whatQuery + "+" + dataArr[i];
+      } else {
+        spotifyQuery += dataArr[i];
+      }
 
-		console.log("You requested to " + "<" + whatAction + "> with " + whatQuery);
+		console.log("You requested to " + "<" + whatAction + "> with " + spotifyQuery);
 
 		//Remove the quotes before making a request
-		whatQuery = whatQuery.replace(/^"(.*)"$/, '$1');
+		spotifyQuery = spotifyQuery.replace(/^"(.*)"$/, '$1');
 
-	 action(whatAction, whatQuery);
-	});
+	 action(whatAction, spotifyQuery);
+  }
+})
 }
-  
 
+  
 
 
