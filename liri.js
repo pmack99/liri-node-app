@@ -179,4 +179,30 @@ function spotifyThis() {
     });
   }
   
+function doWhat(){
+  fs.readFile("random.txt", "utf8", function(err, data) {
+    if (err) {
+      return console.log(err);
+    }
+
+		//Creating an array from a string with split()
+		//Every comma, push the element into the array
+		var dataArr = data.split(',');
+
+		// console.log(dataArr);
+
+		var whatAction= dataArr[0];
+		var whatQuery = dataArr[1];
+
+		console.log("You requested to " + "<" + whatAction + "> with " + whatQuery);
+
+		//Remove the quotes before making a request
+		whatQuery = whatQuery.replace(/^"(.*)"$/, '$1');
+
+	 action(whatAction, whatQuery);
+	});
+}
+  
+
+
 
