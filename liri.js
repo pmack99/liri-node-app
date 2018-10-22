@@ -197,7 +197,7 @@ function doWhat() {
         "You requested to " + "<" + whatAction + "> with " + whatQuery
       );
 
-      spotifyThis(whatAction, whatQuery);
+      action(whatAction, whatQuery);
     
   });
 }
