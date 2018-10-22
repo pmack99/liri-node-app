@@ -3,7 +3,7 @@ var fs = require("fs");
 
 var request = require("request");
 var moment = require("moment");
-var Spotify = require('node-spotify-api');
+var Spotify = require("node-spotify-api");
 var dotenv = require("dotenv").config();
 var keys = require("./keys.js");
 var spotify = new Spotify(keys.spotify);
@@ -139,15 +139,13 @@ function concertThis() {
             JSON.parse(response.body)[i].datetime +
             "\r\n"
 
-            // var time = response.passes[i].startUTC;
-            // var dateString = moment.unix(time).format('LLLL');
-
+          // var time = response.passes[i].startUTC;
+          // var dateString = moment.unix(time).format('LLLL');
         );
       }
     }
   });
 }
-
 
 function spotifyThis() {
   var nodeArgsS = process.argv;
@@ -159,58 +157,47 @@ function spotifyThis() {
   // And do a little for-loop magic to handle the inclusion of "+"s
   for (var i = 3; i < nodeArgsS.length; i++) {
     if (i > 3 && i < nodeArgsS.length) {
-      spotifyQuery= spotifyQuery + "+" + nodeArgsS[i];
+      spotifyQuery = spotifyQuery + "+" + nodeArgsS[i];
     } else {
       spotifyQuery += nodeArgsS[i];
     }
     //console.log(spotifyQuery);
   }
 
-    spotify.search({ type: 'track', query: spotifyQuery }, function(err, data) {
-      if (err) {
-        return console.log('Error occurred: ' + err);
-      }
-    for (i=0; i < data.length; i++);
-    console.log("Artist name:  " + data.tracks.items[i].album.artists[i].name); 
-    console.log("Song name:  " + data.tracks.items[i].name); 
-    console.log("Album name:  " + data.tracks.items[i].album.name); 
-    console.log("Preview link:  " + data.tracks.items[i].album.external_urls.spotify); 
-    //console.log(data.tracks.items[i]); 
-    });
-  }
-  
-function doWhat(){
+  spotify.search({ type: "track", query: spotifyQuery }, function(err, data) {
+    if (err) {
+      return console.log("Error occurred: " + err);
+    }
+    for (i = 0; i < data.length; i++);
+    console.log("Artist name:  " + data.tracks.items[i].album.artists[i].name);
+    console.log("Song name:  " + data.tracks.items[i].name);
+    console.log("Album name:  " + data.tracks.items[i].album.name);
+    console.log(
+      "Preview link:  " + data.tracks.items[i].album.external_urls.spotify
+    );
+    //console.log(data.tracks.items[i]);
+  });
+}
+
+function doWhat() {
   fs.readFile("random.txt", "utf8", function(err, data) {
     if (err) {
       return console.log(err);
     }
+      //Creating an array from a string with split()
+      //Every comma, push the element into the array
+      var dataArr = data.split(",");
 
-		//Creating an array from a string with split()
-		//Every comma, push the element into the array
-		var dataArr = data.split(',');
+      // console.log(dataArr);
 
-		// console.log(dataArr);
+      var whatAction = dataArr[0];
+      var whatQuery = dataArr[1];
 
-    var whatAction= dataArr[0];
-    var whatQuery = dataArr[1];
+      console.log(
+        "You requested to " + "<" + whatAction + "> with " + whatQuery
+      );
+
+      spotifyThis(whatAction, whatQuery);
     
-    for (var i = 1; i < dataArr.length; i++) {
-      if (i > 1 && i < dataArr.length) {
-        spotifyQuery= whatQuery + "+" + dataArr[i];
-      } else {
-        spotifyQuery += dataArr[i];
-      }
-
-		console.log("You requested to " + "<" + whatAction + "> with " + spotifyQuery);
-
-		//Remove the quotes before making a request
-		spotifyQuery = spotifyQuery.replace(/^"(.*)"$/, '$1');
-
-	 action(whatAction, spotifyQuery);
-  }
-})
+  });
 }
-
-  
-
-
