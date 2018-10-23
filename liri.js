@@ -147,7 +147,7 @@ function concertThis() {
   });
 }
 
-function spotifyThis() {
+function spotifyThis(spotifyQuery) {
   var nodeArgsS = process.argv;
 
   // Create an empty variable for holding the song name
@@ -218,7 +218,6 @@ function doWhat() {
         console.log("Album:        " + data.tracks.items[0].album.name);
         console.log("Preview Link: " + data.tracks.items[0].preview_url);
       });
-  
     });
   
 }
