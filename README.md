@@ -4,7 +4,7 @@
   The process.argv method is how we translate the terminal command into a useable argument.
   To do this, we have to first load in the required files. 
 
-![Image of required files](../images/requiredFiles.png)
+![Image of required files](/images/requiredFiles.png)
 
 
 
@@ -14,19 +14,19 @@ The string in index[3] is the command. The four we have in this exercise is movi
 The string in index[4] is the query. 
 
 When the node liri "XXXXXXX" command and "query" is given, a switch case is used to determine the course.
-![Image of switch](../images/switch.png)
+![Image of switch](/images/switch.png)
 
 
 In the case of movie-this, this is the returned results from the command:
-![Image of movie-this](../images/movie-This.png)
+![Image of movie-this](/images/movie-This.png)
 
 
 In the case of concert-this, this is the returned results from the command:
-![Image of concert-this](../images/concert.This.png)
+![Image of concert-this](/images/concert.This.png)
 
 
 In the case of spotify-this-song, this is the returned results from the command:
-![Image of spotify-this](../images/.spotify.png)
+![Image of spotify-this](/images/.spotify.png)
 
 
 The do-what-it-says function is special.
