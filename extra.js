@@ -68,3 +68,28 @@ request(queryUrl, function(error, response, body) {
   
 
 
+
+
+    function doWhat() {
+      fs.readFile("random.txt", "utf8", function(err, data) {
+        if (err) {
+          return console.log(err);
+        }
+          //Creating an array from a string with split()
+          //Every comma, push the element into the array
+          var dataArr = data.split(",");
+    
+          // console.log(dataArr);
+    
+          var whatAction = dataArr[0];
+          var whatQuery = dataArr[1];
+    
+          console.log(
+            "You want to " + whatAction + " with " + whatQuery
+          );
+    
+          action(whatAction, whatQuery);
+      
+        });
+      
+    }

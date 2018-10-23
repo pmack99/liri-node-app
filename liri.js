@@ -168,36 +168,20 @@ function spotifyThis() {
     if (err) {
       return console.log("Error occurred: " + err);
     }
-    for (i = 0; i < data.length; i++);
-    console.log("Artist name:  " + data.tracks.items[i].album.artists[i].name);
-    console.log("Song name:  " + data.tracks.items[i].name);
-    console.log("Album name:  " + data.tracks.items[i].album.name);
-    console.log(
-      "Preview link:  " + data.tracks.items[i].album.external_urls.spotify
-    );
-    //console.log(data.tracks.items[i]);
-  });
-}
-
-function doWhat() {
-  fs.readFile("random.txt", "utf8", function(err, data) {
-    if (err) {
-      return console.log(err);
+    //console.log('line 171', JSON.stringify(data,null, 2));
+    
+    for(var i = 0; i < data.tracks.items[0].artists.length; i++) {
+      if(i === 0) {
+        console.log("Artist(s):    " + data.tracks.items[0].artists[i].name);
+      } else {
+        console.log("              " + data.tracks.items[0].artists[i].name);
+      }
     }
-      //Creating an array from a string with split()
-      //Every comma, push the element into the array
-      var dataArr = data.split(",");
-
-      // console.log(dataArr);
-
-      var whatAction = dataArr[0];
-      var whatQuery = dataArr[1];
-
-      console.log(
-        "You requested to " + "<" + whatAction + "> with " + whatQuery
-      );
-
-      action(whatAction, whatQuery);
+      console.log("Song:         " + data.tracks.items[0].name);
+      console.log("Album:        " + data.tracks.items[0].album.name);
+      console.log("Preview Link: " + data.tracks.items[0].preview_url);
+      
     
   });
-}
+
+    }
