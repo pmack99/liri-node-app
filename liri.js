@@ -147,7 +147,7 @@ function concertThis() {
   });
 }
 
-function spotifyThis(spotifyQuery) {
+function spotifyThis() {
   var nodeArgsS = process.argv;
 
   // Create an empty variable for holding the song name
@@ -188,36 +188,36 @@ function doWhat() {
     if (err) {
       return console.log(err);
     }
-      //Creating an array from a string with split()
-      //Every comma, push the element into the array
-      var dataArr = data.split(",");
 
-      // console.log(dataArr);
+    var whatAction;
+    var whatQuery;
+    var dataArr = [];
+    //Creating an array from a string with split()
+    //Every comma, push the element into the array
+    var dataArr = data.split(",");
 
-      var whatAction = dataArr[0];
-      var whatQuery = dataArr[1];
+    // console.log(dataArr);
 
-      console.log(
-        "You want to " + whatAction + " with " + whatQuery
-      );
+    var whatAction = dataArr[0];
+    var whatQuery = dataArr[1];
 
-      spotify.search({ type: "track", query: whatQuery }, function(err, data) {
-        if (err) {
-          return console.log("Error occurred: " + err);
-        }
-        //console.log('line 171', JSON.stringify(data,null, 2));
-    
-        for (var i = 0; i < data.tracks.items[0].artists.length; i++) {
-          if (i === 0) {
-            console.log("Artist(s):    " + data.tracks.items[0].artists[i].name);
-          } else {
-            console.log("              " + data.tracks.items[0].artists[i].name);
-          }
-        }
-        console.log("Song:         " + data.tracks.items[0].name);
-        console.log("Album:        " + data.tracks.items[0].album.name);
-        console.log("Preview Link: " + data.tracks.items[0].preview_url);
-      });
-    });
-  
+    console.log("You want to " + whatAction + " with " + whatQuery);
+
+    switch (whatAction) {
+      case "concert-this":
+        value = whatQuery;
+        concertThis();
+        break;
+
+      case "spotify-this-song":
+        value = whatQuery;
+        spotifyThis();
+        break;
+
+      case "movie-this":
+        value = whatQuery;
+        movieThis();
+        break;
+    }
+  });
 }
