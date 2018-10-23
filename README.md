@@ -3,7 +3,8 @@
 # This liri-node-app will take in a terminal command and perform search functions. 
   The process.argv method is how we translate the terminal command into a useable argument.
   To do this, we have to first load in the required files. 
-![Image of required files](hhttps://github.com/pmack99/liri-node-app/tree/master/images/requiredFiles.png)
+  
+![Image of required files](https://github.com/pmack99/liri-node-app/tree/master/images/requiredFiles.png)
 
 
 
