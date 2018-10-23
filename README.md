@@ -29,7 +29,7 @@ In the case of concert-this, this is the returned results from the command:
 
 In the case of spotify-this-song, this is the returned results from the command:
 ## node liri spotify-this-song Dream On
-![Image of spotify-this](./images/.spotify.png)
+![Image of spotify-this](./images/spotify.png)
 
 
 The do-what-it-says function is special.
