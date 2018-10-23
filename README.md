@@ -18,14 +18,17 @@ When the node liri "XXXXXXX" command and "query" is given, a switch case is used
 
 
 In the case of movie-this, this is the returned results from the command:
+## node liri movie-this Star Wars
 ![Image of movie-this](./images/movie-This.png)
 
 
 In the case of concert-this, this is the returned results from the command:
+## node liri concert-this Bon Jovi
 ![Image of concert-this](./images/concert.This.png)
 
 
 In the case of spotify-this-song, this is the returned results from the command:
+## node liri spotify-this-song Dream On
 ![Image of spotify-this](./images/.spotify.png)
 
 
