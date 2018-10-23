@@ -201,7 +201,23 @@ function doWhat() {
         "You want to " + whatAction + " with " + whatQuery
       );
 
-      action(whatAction, whatQuery);
+      spotify.search({ type: "track", query: whatQuery }, function(err, data) {
+        if (err) {
+          return console.log("Error occurred: " + err);
+        }
+        //console.log('line 171', JSON.stringify(data,null, 2));
+    
+        for (var i = 0; i < data.tracks.items[0].artists.length; i++) {
+          if (i === 0) {
+            console.log("Artist(s):    " + data.tracks.items[0].artists[i].name);
+          } else {
+            console.log("              " + data.tracks.items[0].artists[i].name);
+          }
+        }
+        console.log("Song:         " + data.tracks.items[0].name);
+        console.log("Album:        " + data.tracks.items[0].album.name);
+        console.log("Preview Link: " + data.tracks.items[0].preview_url);
+      });
   
     });
   
