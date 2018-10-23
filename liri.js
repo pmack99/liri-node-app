@@ -60,32 +60,32 @@ function movieThis() {
   }
 
   var queryUrl = "http://www.omdbapi.com/?t=" + movieName + "&apikey=trilogy";
-  console.log(queryUrl);
+  //console.log(queryUrl);
 
   request(queryUrl, function(error, response, body) {
     // If the request is successful (i.e. if the response status code is 200)
     if (!error && response.statusCode === 200) {
       // Parse the body of the site and recover just the imdbRating
       // (Note: The syntax below for parsing isn't obvious. Just spend a few moments dissecting it).
-      console.log("The movie's title is: " + JSON.parse(body).Title + "\r\n");
-      console.log("The movie's came out in: " + JSON.parse(body).Year + "\r\n");
+      console.log("The movie's title is: " + JSON.parse(body).Title + "\r");
+      console.log("The movie's came out in: " + JSON.parse(body).Year + "\r");
       console.log(
-        "The movie's IMDB rating is: " + JSON.parse(body).imdbRating + "\r\n"
+        "The movie's IMDB rating is: " + JSON.parse(body).imdbRating + "\r"
       );
       console.log(
         "The movie's Rotton Tomatoes rating is: " +
           JSON.parse(body).Ratings[1] +
-          "\r\n"
+          "\r"
       );
       console.log(
         "The movie's Country of production is: " +
           JSON.parse(body).Country +
-          "\r\n"
+          "\r"
       );
       console.log(
-        "The movie's language is: " + JSON.parse(body).Language + "\r\n"
+        "The movie's language is: " + JSON.parse(body).Language + "\r"
       );
-      console.log("The movie's plot is: " + JSON.parse(body).Plot + "\r\n");
+      console.log("The movie's plot is: " + JSON.parse(body).Plot + "\r");
       console.log(
         "The movie's actors are: " + JSON.parse(body).Actors + "\r\n"
       );
@@ -129,10 +129,10 @@ function concertThis() {
           band +
             " is playing the  " +
             JSON.parse(response.body)[i].venue.name +
-            "\r\n"
+            "\r"
         );
         console.log(
-          "The venue is in: " + JSON.parse(response.body)[i].venue.city + "\r\n"
+          "The venue is in: " + JSON.parse(response.body)[i].venue.city + "\r"
         );
         console.log(
           "The date of the event is: " +
@@ -169,19 +169,40 @@ function spotifyThis() {
       return console.log("Error occurred: " + err);
     }
     //console.log('line 171', JSON.stringify(data,null, 2));
-    
-    for(var i = 0; i < data.tracks.items[0].artists.length; i++) {
-      if(i === 0) {
+
+    for (var i = 0; i < data.tracks.items[0].artists.length; i++) {
+      if (i === 0) {
         console.log("Artist(s):    " + data.tracks.items[0].artists[i].name);
       } else {
         console.log("              " + data.tracks.items[0].artists[i].name);
       }
     }
-      console.log("Song:         " + data.tracks.items[0].name);
-      console.log("Album:        " + data.tracks.items[0].album.name);
-      console.log("Preview Link: " + data.tracks.items[0].preview_url);
-      
-    
+    console.log("Song:         " + data.tracks.items[0].name);
+    console.log("Album:        " + data.tracks.items[0].album.name);
+    console.log("Preview Link: " + data.tracks.items[0].preview_url);
   });
+}
 
+function doWhat() {
+  fs.readFile("random.txt", "utf8", function(err, data) {
+    if (err) {
+      return console.log(err);
     }
+      //Creating an array from a string with split()
+      //Every comma, push the element into the array
+      var dataArr = data.split(",");
+
+      // console.log(dataArr);
+
+      var whatAction = dataArr[0];
+      var whatQuery = dataArr[1];
+
+      console.log(
+        "You want to " + whatAction + " with " + whatQuery
+      );
+
+      action(whatAction, whatQuery);
+  
+    });
+  
+}
