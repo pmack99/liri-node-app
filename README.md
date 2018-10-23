@@ -1,8 +1,8 @@
 # liri-node-app
 
-This liri-node-app will take in a terminal command and perform search functions. 
-The process.argv method is how we translate the terminal command into a useable argument.
-To do this, we have to first load in the required files. 
+# This liri-node-app will take in a terminal command and perform search functions. 
+  The process.argv method is how we translate the terminal command into a useable argument.
+  To do this, we have to first load in the required files. 
 ![Image of required files](hhttps://github.com/pmack99/liri-node-app/tree/master/images/requiredFiles.png)
 
 
@@ -11,7 +11,6 @@ When we look at the terminal command, node (index [0])  and liri (index [1]) are
 "Node" is the default way to run the app, "liri" is the name of the file we are running. 
 The string in index[3] is the command. The four we have in this exercise is movie-this, concert-this, spotify-this-song and do-what-it-says.
 The string in index[4] is the query. 
-
 
 When the node liri "XXXXXXX" command and "query" is given, a switch case is used to determine the course.
 ![Image of switch](https://github.com/pmack99/liri-node-app/tree/master/images/switch.png)
