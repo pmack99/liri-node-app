@@ -96,23 +96,23 @@ function movieThis() {
 function concertThis() {
   var nodeArgsC = process.argv;
 
-  var band = "";
+  var whatQuery = "";
 
   // Loop through all the words in the node argument
   // And do a little for-loop magic to handle the inclusion of "+"s
   for (var i = 3; i < nodeArgsC.length; i++) {
     if (i > 3 && i < nodeArgsC.length) {
-      band = band + "+" + nodeArgsC[i];
+      whatQuery = whatQuery + "+" + nodeArgsC[i];
     } else {
-      band += nodeArgsC[i];
+      whatQuery += nodeArgsC[i];
     }
   }
 
-  console.log(band);
+  console.log(whatQuery);
 
   var queryUrl =
     "https://rest.bandsintown.com/artists/" +
-    band +
+    whatQuery +
     "/events?app_id=codingbootcamp";
 
   console.log(queryUrl);
@@ -126,7 +126,7 @@ function concertThis() {
 
         //var time = (response.body)[i].datetime;
         console.log(
-          band +
+          whatQuery +
             " is playing the  " +
             JSON.parse(response.body)[i].venue.name +
             "\r"
@@ -189,7 +189,7 @@ function doWhat() {
       return console.log(err);
     }
 
-    var whatAction;
+    var action;
     var whatQuery;
     var dataArr = [];
     //Creating an array from a string with split()
@@ -198,12 +198,12 @@ function doWhat() {
 
     // console.log(dataArr);
 
-    var whatAction = dataArr[0];
+    var action = dataArr[0];
     var whatQuery = dataArr[1];
 
-    console.log("You want to " + whatAction + " with " + whatQuery);
+    console.log("You want to " + action + " with " + whatQuery);
 
-    switch (whatAction) {
+    switch (action) {
       case "concert-this":
         value = whatQuery;
         concertThis();
