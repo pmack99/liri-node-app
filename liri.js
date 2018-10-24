@@ -213,17 +213,17 @@ function doWhat() {
     switch (action) {
       case "concert-this":
         
-        concertThis();
+        concertThis(whatQuery);
         break;
 
       case "spotify-this-song":
         
-        spotifyThis();
+        spotifyThis(whatQuery);
         break;
 
       case "movie-this":
         
-        movieThis();
+        movieThis(whatQuery);
         break;
     }
   });
