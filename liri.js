@@ -17,6 +17,7 @@ var spotify = new Spotify(keys.spotify);
 // node liri.js [ command ] [ query - optional ]
 var action = process.argv[2];
 var nodeArgs = process.argv;
+var whatQuery = "";
 
 // We will then create a switch-case statement (if-else would also work).
 // The switch-case will direct which function gets run.
@@ -42,7 +43,7 @@ function movieThis() {
   
 
   // Create an empty variable for holding the movie name
-  var whatQuery = "";
+  // var whatQuery = "";
 
   // Loop through all the words in the node argument
   // And do a little for-loop magic to handle the inclusion of "+"s
@@ -54,7 +55,7 @@ function movieThis() {
     }
   }
 
-  console.log(whatQuery);
+  // console.log(whatQuery);
 
   // if (!whatQuery) {
   //   whatQuery = "mr nobody";
@@ -68,7 +69,7 @@ function movieThis() {
     if (!error && response.statusCode === 200) {
       // Parse the body of the site and recover just the imdbRating
       // (Note: The syntax below for parsing isn't obvious. Just spend a few moments dissecting it).
-      console.log(JSON.parse(body));
+      // console.log(JSON.parse(body));
       console.log("The movie's title is: " + JSON.parse(body).Title + "\r");
       console.log("The movie's came out in: " + JSON.parse(body).Year + "\r");
       console.log(
@@ -197,7 +198,6 @@ function doWhat() {
     }
 
     var action;
-    var whatQuery;
     var dataArr = [];
     //Creating an array from a string with split()
     //Every comma, push the element into the array
@@ -213,17 +213,17 @@ function doWhat() {
     switch (action) {
       case "concert-this":
         
-        concertThis(whatQuery);
+        concertThis();
         break;
 
       case "spotify-this-song":
         
-        spotifyThis(whatQuery);
+        spotifyThis();
         break;
 
       case "movie-this":
         
-        movieThis(whatQuery);
+        movieThis();
         break;
     }
   });
