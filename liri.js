@@ -134,9 +134,14 @@ function concertThis() {
         console.log(
           "The venue is in: " + JSON.parse(response.body)[i].venue.city + "\r"
         );
+
+        
+        var concert = JSON.parse(response.body)[i].datetime;
+        var concertInfo= moment(concert).format("dddd, MMMM Do YYYY");
+
         console.log(
           "The date of the event is: " +
-            JSON.parse(response.body)[i].datetime +
+            concertInfo +
             "\r\n"
 
           // var time = response.passes[i].startUTC;

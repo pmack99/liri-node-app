@@ -124,9 +124,7 @@ function concertThis() {
       console.log(JSON.parse(response.body).length);
 
       for (i = 0; i < JSON.parse(response.body).length; i++) {
-        //console.log('the value of i is ', i);
 
-        //var time = (response.body)[i].datetime;
         console.log(
           band +
             " is playing the  " +
@@ -136,18 +134,19 @@ function concertThis() {
         console.log(
           "The venue is in: " + JSON.parse(response.body)[i].venue.city + "\r"
         );
-        console.log(
-          "The date of the event is: " +
-            JSON.parse(response.body)[i].datetime +
-            "\r\n"
 
-          // var time = response.passes[i].startUTC;
-          // var dateString = moment.unix(time).format('LLLL');
-        );
+        JSON.parse(response.body)[i].venue.city;
+               var concert = JSON.parse(response.body)[i].datetime;
+               var concertInfo= moment(concert).format("dddd, MMMM Do YYYY");
+
+        console.log(
+          "The date of the event is: " + concertInfo + "\r\n")
+        };
       }
-    }
-  });
-}
+      
+    
+  
+
 
 function spotifyThis() {
   var nodeArgsS = process.argv;
@@ -222,4 +221,4 @@ function doWhat() {
         break;
     }
   });
-}
+
