@@ -205,18 +205,18 @@ function doWhat() {
 
     switch (action) {
       case "concert-this":
-        value = whatQuery;
-        concertThis();
+        
+        concertThis(whatQuery);
         break;
 
       case "spotify-this-song":
-        value = whatQuery;
-        spotifyThis();
+        
+        spotifyThis(whatQuery);
         break;
 
       case "movie-this":
-        value = whatQuery;
-        movieThis();
+        
+        movieThis(whatQuery);
         break;
     }
   });
