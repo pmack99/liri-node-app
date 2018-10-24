@@ -16,6 +16,7 @@ var spotify = new Spotify(keys.spotify);
 // The second will be the query - we are doing this inside the function for each action below
 // node liri.js [ command ] [ query - optional ]
 var action = process.argv[2];
+var nodeArgs = process.argv;
 
 // We will then create a switch-case statement (if-else would also work).
 // The switch-case will direct which function gets run.
@@ -38,45 +39,46 @@ switch (action) {
 }
 
 function movieThis() {
-  var nodeArgs = process.argv;
+  
 
   // Create an empty variable for holding the movie name
-  var movieName = "";
+  var whatQuery = "";
 
   // Loop through all the words in the node argument
   // And do a little for-loop magic to handle the inclusion of "+"s
   for (var i = 3; i < nodeArgs.length; i++) {
     if (i > 3 && i < nodeArgs.length) {
-      movieName = movieName + "+" + nodeArgs[i];
+      whatQuery = whatQuery + "+" + nodeArgs[i];
     } else {
-      movieName += nodeArgs[i];
+      whatQuery += nodeArgs[i];
     }
   }
 
-  console.log(movieName);
+  console.log(whatQuery);
 
-  if (!movieName) {
-    movieName = "mr nobody";
-  }
+  // if (!whatQuery) {
+  //   whatQuery = "mr nobody";
+  // }
 
-  var queryUrl = "http://www.omdbapi.com/?t=" + movieName + "&apikey=trilogy";
-  //console.log(queryUrl);
+  var queryUrl = "http://www.omdbapi.com/?t=" + whatQuery + "&apikey=trilogy";
+  console.log(queryUrl);
 
   request(queryUrl, function(error, response, body) {
     // If the request is successful (i.e. if the response status code is 200)
     if (!error && response.statusCode === 200) {
       // Parse the body of the site and recover just the imdbRating
       // (Note: The syntax below for parsing isn't obvious. Just spend a few moments dissecting it).
+      console.log(JSON.parse(body));
       console.log("The movie's title is: " + JSON.parse(body).Title + "\r");
       console.log("The movie's came out in: " + JSON.parse(body).Year + "\r");
       console.log(
         "The movie's IMDB rating is: " + JSON.parse(body).imdbRating + "\r"
       );
-      console.log(
-        "The movie's Rotton Tomatoes rating is: " +
-          JSON.parse(body).Ratings[1] +
-          "\r"
-      );
+      // console.log(
+      //   "The movie's Rotton Tomatoes rating is: " +
+      //     JSON.parse(body).Ratings +
+      //     "\r"
+      // );
       console.log(
         "The movie's Country of production is: " +
           JSON.parse(body).Country +
@@ -156,20 +158,20 @@ function spotifyThis() {
   var nodeArgsS = process.argv;
 
   // Create an empty variable for holding the song name
-  var spotifyQuery = "";
+  var whatQuery = "";
 
   // Loop through all the words in the node argument
   // And do a little for-loop magic to handle the inclusion of "+"s
   for (var i = 3; i < nodeArgsS.length; i++) {
     if (i > 3 && i < nodeArgsS.length) {
-      spotifyQuery = spotifyQuery + "+" + nodeArgsS[i];
+      whatQuery = whatQuery + "+" + nodeArgsS[i];
     } else {
-      spotifyQuery += nodeArgsS[i];
+      whatQuery += nodeArgsS[i];
     }
     //console.log(spotifyQuery);
   }
 
-  spotify.search({ type: "track", query: spotifyQuery }, function(err, data) {
+  spotify.search({ type: "track", query: whatQuery }, function(err, data) {
     if (err) {
       return console.log("Error occurred: " + err);
     }
