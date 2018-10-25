@@ -39,7 +39,7 @@ switch (action) {
     break;
 }
 
-function movieThis() {
+function movieThis(whatQuery) {
   
 
   // Create an empty variable for holding the movie name
@@ -96,7 +96,7 @@ function movieThis() {
   });
 }
 
-function concertThis() {
+function concertThis(whatQuery ) {
   var nodeArgsC = process.argv;
 
   var whatQuery = "";
@@ -155,7 +155,7 @@ function concertThis() {
   });
 }
 
-function spotifyThis() {
+function spotifyThis(whatQuery ) {
   var nodeArgsS = process.argv;
 
   // Create an empty variable for holding the song name
