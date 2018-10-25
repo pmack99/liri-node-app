@@ -33,7 +33,9 @@ In the case of spotify-this-song, this is the returned results from the command:
 
 
 The do-what-it-says function is special.
-With the require FS function, it will allow you to read an external file (random.txt in this case) to input the parameters of the search.
+With the require FS function, it will allow you to read an external file (random.txt in this case) to input the parameters of the search. I places a "movie-this" Groundhog Day text that is passed through this last function.
+![Image of spotify-this](./images/do_what.png)
+
 
 
 
